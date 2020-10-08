@@ -19,6 +19,14 @@ namespace GoTDisplayMore
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        Texture2D characterTexture;
+        Rectangle characterRectangle;
+
+        Texture2D badCharacterTexture;
+        Rectangle badCharacterRectangle;
+
+        int xLoc = 500;
+        int yLoc = 250;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -34,7 +42,8 @@ namespace GoTDisplayMore
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            characterRectangle = new Rectangle(xLoc, yLoc, 300, 300);
+            badCharacterRectangle = new Rectangle(xLoc - 400, yLoc + 60, 270, 180);
             base.Initialize();
         }
 
@@ -46,7 +55,8 @@ namespace GoTDisplayMore
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            badCharacterTexture = this.Content.Load<Texture2D>("badcharacter");
+            characterTexture = this.Content.Load<Texture2D>("goodcharacter");
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,7 +81,9 @@ namespace GoTDisplayMore
                 this.Exit();
 
             // TODO: Add your update logic here
-
+            xLoc--;
+            characterRectangle = new Rectangle(xLoc, yLoc, 300, 300);
+            badCharacterRectangle = new Rectangle(xLoc - 400, yLoc + 60, 270, 180);
             base.Update(gameTime);
         }
 
@@ -84,7 +96,10 @@ namespace GoTDisplayMore
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            spriteBatch.Draw(characterTexture,characterRectangle,Color.White);
+            spriteBatch.Draw(badCharacterTexture,badCharacterRectangle,Color.White);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
